@@ -11,7 +11,7 @@ gem "solid_cable"
 gem "bootsnap", require: false
 gem "kamal", ">= 2.0.0.rc2", require: false
 gem "thruster", require: false
-gem "bcrypt", "3.1.7"
+gem "bcrypt", "3.1.20"
 gem "jwt"
 
 group :development, :test do
