@@ -32,4 +32,4 @@
 /config/master.key
 
 # Simplecov
-coverage/*
+/coverage
