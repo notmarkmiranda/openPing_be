@@ -1,6 +1,8 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      include TokenGenerator
+
       def create
         @user = User.new(user_params)
         if @user.save
@@ -15,11 +17,6 @@ module Api
 
       def user_params
         params.require(:user).permit(:email, :password)
-      end
-
-      def generate_token(user)
-        payload = { user_id: user.id }
-        JWT.encode(payload, Rails.application.credentials.secret_key_base)
       end
     end
   end
