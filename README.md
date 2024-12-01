@@ -11,6 +11,7 @@ OpenPing is a versatile Rails API application designed to support a variety of b
   - [API Endpoints](#api-endpoints)
     - [User Registration](#user-registration)
     - [User Sign-In](#user-sign-in)
+    - [Sites Management](#sites-management)
   - [Running Tests](#running-tests)
   - [Environment Setup](#environment-setup)
   - [Contributing](#contributing)
@@ -91,6 +92,43 @@ Once the server is running, you can interact with the API using tools like Postm
     "password": "password"
   }
   ```
+
+### Sites Management
+
+- **Endpoint:** `GET /api/v1/sites`
+- **Description:** Retrieve a list of sites for the authenticated user.
+- **Response:** Array of site objects.
+
+- **Endpoint:** `GET /api/v1/sites/:id`
+- **Description:** Retrieve a specific site by ID.
+- **Response:** Site object.
+
+- **Endpoint:** `POST /api/v1/sites`
+- **Description:** Create a new site.
+- **Request Body:**
+  ```json
+  {
+    "site": {
+      "url": "http://example.com",
+      "frequency": 10,
+      "is_active": true
+    }
+  }
+  ```
+
+- **Endpoint:** `PATCH /api/v1/sites/:id`
+- **Description:** Update an existing site.
+- **Request Body:**
+  ```json
+  {
+    "site": {
+      "url": "http://newexample.com"
+    }
+  }
+  ```
+
+- **Endpoint:** `DELETE /api/v1/sites/:id`
+- **Description:** Delete a site by ID.
 
 ## Running Tests
 
