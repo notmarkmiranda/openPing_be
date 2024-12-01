@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Site, type: :model do
-  let(:user) { create(:user) } # Assuming you have a user factory
+  let(:user) { create(:user) }
+  let(:another_user) { create(:user) }
 
   describe "Validations" do
     it "is valid with valid attributes" do
@@ -22,6 +23,18 @@ RSpec.describe Site, type: :model do
     it "is not valid without a user" do
       site = Site.new(url: "http://example.com", frequency: 10, user: nil)
       expect(site).to_not be_valid
+    end
+
+    it "validates uniqueness of url scoped to user_id" do
+      create(:site, url: "http://example.com", user: user)
+      site2 = build(:site, url: "http://example.com", user: user)
+
+      expect(site2).not_to be_valid
+      expect(site2.errors[:url]).to include("has already been taken")
+
+      # Ensure a different user can have the same URL
+      site3 = build(:site, url: "http://example.com", user: another_user)
+      expect(site3).to be_valid
     end
   end
 end
