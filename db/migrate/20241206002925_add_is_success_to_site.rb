@@ -1,0 +1,5 @@
+class AddIsSuccessToSite < ActiveRecord::Migration[8.0]
+  def change
+    add_column :sites, :is_success, :boolean, default: false
+  end
+end

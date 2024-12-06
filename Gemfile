@@ -13,6 +13,7 @@ gem "thruster", require: false
 gem "bcrypt", "3.1.20"
 gem "jwt"
 gem "good_job"
+gem "httparty"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
