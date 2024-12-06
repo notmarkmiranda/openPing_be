@@ -36,5 +36,21 @@ RSpec.describe Site, type: :model do
       site3 = build(:site, url: "http://example.com", user: another_user)
       expect(site3).to be_valid
     end
+
+    it "is not valid with an invalid URL" do
+      site = Site.new(url: "invalid-url", frequency: 10, user: user)
+      expect(site).to_not be_valid
+      expect(site.errors[:url]).to include("must be a valid HTTP or HTTPS URL")
+    end
+
+    it "is valid with a valid HTTP URL" do
+      site = Site.new(url: "http://valid-url.com", frequency: 10, user: user)
+      expect(site).to be_valid
+    end
+
+    it "is valid with a valid HTTPS URL" do
+      site = Site.new(url: "https://valid-url.com", frequency: 10, user: user)
+      expect(site).to be_valid
+    end
   end
 end

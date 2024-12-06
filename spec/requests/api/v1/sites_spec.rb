@@ -4,7 +4,7 @@ include TokenGenerator
 RSpec.describe "Api::V1::Sites", type: :request do
   let(:user) { create(:user) }
   let(:headers) { { "Authorization" => "Bearer #{generate_token(user)}" } }
-  let!(:site) { create(:site, user: user) }
+  let!(:site) { create(:site, url: "http://valid-url.com", user: user) }
 
   describe "GET /api/v1/sites" do
     before do
