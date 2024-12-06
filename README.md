@@ -8,10 +8,12 @@ OpenPing is a versatile Rails API application designed to support a variety of b
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Usage](#usage)
+    - [Background Jobs](#background-jobs)
   - [API Endpoints](#api-endpoints)
     - [User Registration](#user-registration)
     - [User Sign-In](#user-sign-in)
     - [Sites Management](#sites-management)
+    - [Authentication](#authentication)
   - [Running Tests](#running-tests)
   - [Environment Setup](#environment-setup)
   - [Contributing](#contributing)
@@ -65,6 +67,14 @@ To get started with OpenPing, follow these steps:
 
 Once the server is running, you can interact with the API using tools like Postman or curl. The base URL for local development is `http://localhost:3000`.
 
+### Background Jobs
+
+OpenPing uses [GoodJob](https://github.com/bensheldon/good_job) for background job processing. GoodJob is configured to handle Active Job tasks, such as pinging sites at specified intervals. Ensure that the GoodJob worker is running to process these jobs. You can start the GoodJob worker with:
+
+```bash
+bundle exec good_job start
+```
+
 ## API Endpoints
 
 ### User Registration
@@ -96,39 +106,43 @@ Once the server is running, you can interact with the API using tools like Postm
 ### Sites Management
 
 - **Endpoint:** `GET /api/v1/sites`
-- **Description:** Retrieve a list of sites for the authenticated user.
-- **Response:** Array of site objects.
+  - **Description:** Retrieve a list of sites for the authenticated user.
+  - **Response:** Array of site objects.
 
 - **Endpoint:** `GET /api/v1/sites/:id`
-- **Description:** Retrieve a specific site by ID.
-- **Response:** Site object.
+  - **Description:** Retrieve a specific site by ID.
+  - **Response:** Site object.
 
 - **Endpoint:** `POST /api/v1/sites`
-- **Description:** Create a new site.
-- **Request Body:**
-  ```json
-  {
-    "site": {
-      "url": "http://example.com",
-      "frequency": 10,
-      "is_active": true
+  - **Description:** Create a new site.
+  - **Request Body:**
+    ```json
+    {
+      "site": {
+        "url": "http://example.com",
+        "frequency": 10,
+        "is_active": true
+      }
     }
-  }
-  ```
+    ```
 
 - **Endpoint:** `PATCH /api/v1/sites/:id`
-- **Description:** Update an existing site.
-- **Request Body:**
-  ```json
-  {
-    "site": {
-      "url": "http://newexample.com"
+  - **Description:** Update an existing site.
+  - **Request Body:**
+    ```json
+    {
+      "site": {
+        "url": "http://newexample.com"
+      }
     }
-  }
-  ```
+    ```
 
 - **Endpoint:** `DELETE /api/v1/sites/:id`
-- **Description:** Delete a site by ID.
+  - **Description:** Delete a site by ID.
+
+### Authentication
+
+All endpoints require authentication. Include a valid JWT token in the `Authorization` header of your requests. The token can be obtained by signing in a user via the `/api/v1/sessions` endpoint.
 
 ## Running Tests
 
